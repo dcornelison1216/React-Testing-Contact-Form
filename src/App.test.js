@@ -16,19 +16,3 @@ test("renders fname, lname, email, message fields without crashing", () => {
   const message = container.queryByText(/message/i);
   expect(message).toBeInTheDocument();
 });
-
-// const setup = () => {
-//   const container = rtl.render(<App />)
-//   const input = container.queryByText('first name')
-//   return {
-//     input,
-//     ...container
-//   }
-// }
-
-test("fname error if name > 3 characters", () => {
-  const container = rtl.render(<App />);
-  const fname = container.queryByText('first name');
-  fname.value.change(fname, { target: {value: 'Derek'} });
-  expect(fname.value).toBe('Derek');
-});
