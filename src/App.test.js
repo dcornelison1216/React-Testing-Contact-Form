@@ -8,7 +8,6 @@ import ContactForm from './components/ContactForm'
 // test initial render
 test('renders without crashing', () => {
   const container = rtl.render(<ContactForm />);
-  // console.log(container);
 })
 
 // test form submission
@@ -44,78 +43,51 @@ test("renders message and types a message", () => {
   expect(message.value).toEqual(inputMessage);
 })
 
-// test("renders form, adds input to all fields and submits", async () => {
-//   const container = rtl.render(<App />);
-//
-//   // name each field
-//   const fname = container.getByTestId('fname');
-//   const lname = container.getByTestId('lname');
-//   const email = container.getByTestId('email');
-//   const message = container.getByTestId('message')
-//   const submit = container.getByTestId('submit');
-//
-//   // define input values
-//   const fnameInput = 'FirstName';
-//   const lnameInput = 'LastName';
-//   const emailInput = 'email@email.com';
-//   const messageInput = 'This is a message for testing purposes.'
-//
-//   // input those values
-//   rtl.fireEvent.change(fname, {target: {value: fnameInput}})
-//   rtl.fireEvent.change(lname, {target: {value: lnameInput}})
-//   rtl.fireEvent.change(email, {target: {value: emailInput}})
-//   rtl.fireEvent.change(message, {target: {value: messageInput}})
-//
-//   // click submit button
-//
-//   rtl.fireEvent.submit(container.getByTestId('form'))
-//
-//
-//   .then (
-//     expect(container.getByTestId('pre').textContent).toContain('email@email.com');
-//   )
-// )
+test('renders form, adds input, submits, and checks output', async () => {
+  const container = rtl.render(<ContactForm />);
+  const fname = container.getByTestId('fname');
+  const lname = container.getByTestId('lname');
+  const email = container.getByTestId('email');
+  const message = container.getByTestId('message');
+  const submit = container.getByTestId('submit');
 
-// test('second renders form, adds input to all fields and submits', async () => {
-//   const container = rtl.render(<App />);
-//
-//   const fname = container.getByTestId('fname');
-//   const lname = container.getByTestId('lname');
-//   const email = container.getByTestId('email');
-//   const message = container.getByTestId('message')
-//   const submit = container.getByTestId('submit');
-//   const form = container.getByTestId('form');
-//
-//   const fnameInput = 'FirstName';
-//   const lnameInput = 'LastName';
-//   const emailInput = 'email@email.com';
-//   const messageInput = 'This is a message for testing purposes.';
-//
-//   act(() => {
-//     rtl.render(
-//       <App />,
-//       rtl.fireEvent.change(fname, {target: {value: fnameInput}}),
-//       rtl.fireEvent.change(lname, {target: {value: lnameInput}}),
-//       rtl.fireEvent.change(email, {target: {value: emailInput}}),
-//       rtl.fireEvent.change(message, {target: {value: messageInput}}),
-//       rtl.fireEvent.submit(form)
-//     )
-//     // rtl.fireEvent.submit(container.getByTestId('form'), formSubmitted)
-//   })
-// })
+  await rtl.waitFor(() => {
+    rtl.fireEvent.change(fname, {
+      target: {
+        value: 'FirstName'
+      }
+    })
+  })
 
+  await rtl.waitFor(() => {
+    rtl.fireEvent.change(lname, {
+      target: {
+        value: 'LastName'
+      }
+    })
+  })
 
+  await rtl.waitFor(() => {
+    rtl.fireEvent.change(email, {
+      target: {
+        value: 'email@email.com'
+      }
+    })
+  })
 
-// 1. type name into first name field
+  await rtl.waitFor(() => {
+    rtl.fireEvent.change(message, {
+      target: {
+        value: 'This is a message for testing purposes.'
+      }
+    })
+  })
 
-  // expect no error
+  await rtl.waitFor(() => {
+    rtl.fireEvent.click(submit)
+  })
 
-// 2. fill out form
+  const results = container.getByTestId('pre');
+  expect(results.textContent);
 
-  // submit form
-
-  // expect pre element to have content
-
-// 3. change max length for the first name field
-
-// 4. update test for fname input length
+})
