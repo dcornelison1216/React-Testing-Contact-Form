@@ -88,6 +88,5 @@ test('renders form, adds input, submits, and checks output', async () => {
   })
 
   const results = container.getByTestId('pre');
-  expect(results.textContent);
-
+  expect(results).toBeInTheDocument();
 })
