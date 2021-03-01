@@ -33,6 +33,7 @@
     ]
   },
   "devDependencies": {
+    "enzyme-adapter-react-16": "^1.15.2",
     "mutationobserver-shim": "^0.3.3"
   }
 }
